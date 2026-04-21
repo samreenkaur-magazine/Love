@@ -19,7 +19,7 @@ body {
   overflow: hidden;
 }
 
-/* background */
+/* 🌿 BACKGROUND */
 .bg {
   position: absolute;
   width: 100%;
@@ -27,15 +27,12 @@ body {
   z-index: 0;
 }
 
-/* 🌷 PLANT (REAL GROW FROM GROUND FIX) */
+/* 🌷 PLANT */
 .plant {
   position: absolute;
   bottom: 0;
   width: 10vw;
-
-  height: 0;                /* 🔥 start invisible */
-  opacity: 0;
-  overflow: visible;
+  height: 40vh;
 
   transform-origin: bottom;
 
@@ -104,7 +101,7 @@ body {
   font-size: 4vh;
 }
 
-/* center layout */
+/* 🎯 CENTER LAYOUT */
 .container {
   text-align: center;
   position: relative;
@@ -118,6 +115,7 @@ body {
   padding-top: 8vh;
 }
 
+/* typing */
 .typing {
   font-size: 6vw;
   font-weight: bold;
@@ -126,12 +124,14 @@ body {
   border-right: 2px solid #763C8C;
 }
 
+/* name */
 .name {
   font-size: 5vw;
   margin-top: 1vh;
   color: #5a2d6d;
 }
 
+/* message box */
 .message-card {
   margin-top: 3vh;
   padding: 4vw;
@@ -149,12 +149,12 @@ body {
   text-align: center;
 }
 
+/* signature */
 .signature {
   margin-top: 2vh;
   font-weight: bold;
   font-size: 4vw;
   color: #763C8C;
-  text-align: center;
 }
 
 /* hearts */
@@ -194,35 +194,26 @@ body {
 
 <script>
 
-// hearts
-function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerHTML = "❤";
-
-  heart.style.left = Math.random() * window.innerWidth + "px";
-  heart.style.fontSize = (Math.random() * 15 + 10) + "px";
-
-  document.body.appendChild(heart);
-  setTimeout(() => heart.remove(), 8000);
-}
-setInterval(createHeart, 800);
-
-
-// 🌷 REAL GROW FLOWERS FIXED
 const bg = document.getElementById("bg");
 let lastX = 0;
+let index = 0;
 
+/* 🌷 BALANCED FLOWER SYSTEM */
 function createPlant() {
-  let x;
-  do {
-    x = Math.random() * window.innerWidth;
-  } while (Math.abs(x - lastX) < 80);
-
-  lastX = x;
-
   const plant = document.createElement("div");
   plant.className = "plant";
+
+  const side = index % 2 === 0 ? "left" : "right";
+  index++;
+
+  let x;
+
+  if (side === "left") {
+    x = Math.random() * (window.innerWidth * 0.45);
+  } else {
+    x = window.innerWidth * 0.55 + Math.random() * (window.innerWidth * 0.45);
+  }
+
   plant.style.left = x + "px";
 
   const stem = document.createElement("div");
@@ -250,8 +241,21 @@ function createPlant() {
 
 setInterval(createPlant, 2000);
 
+/* ❤️ hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤";
 
-// typing
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = (Math.random() * 15 + 10) + "px";
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+setInterval(createHeart, 800);
+
+/* ⌨️ typing */
 const text = "I LOVE YOU";
 const typingEl = document.getElementById("typing");
 

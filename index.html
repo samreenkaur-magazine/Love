@@ -19,7 +19,7 @@ body {
   overflow: hidden;
 }
 
-/* 🌿 background */
+/* background */
 .bg {
   position: absolute;
   width: 100%;
@@ -27,19 +27,27 @@ body {
   z-index: 0;
 }
 
-/* 🌷 FLOWERS FIXED TO BOTTOM (NO GAP) */
+/* 🌷 PLANT (FIXED + GROW EFFECT) */
 .plant {
   position: absolute;
-  bottom: 0;              /* 🔥 FIX: true ground */
+  bottom: 0;
   width: 10vw;
-  height: 40vh;           /* big plants */
+  height: 40vh;
   transform-origin: bottom center;
-  animation: sway 6s ease-in-out infinite;
+
+  /* 🔥 grow from ground */
+  animation: growUp 1.8s ease-out forwards, sway 6s ease-in-out infinite;
+  transform: scaleY(0);
+}
+
+@keyframes growUp {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }
 
 @keyframes sway {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+  0%, 100% { transform: scaleY(1) rotate(-3deg); }
+  50% { transform: scaleY(1) rotate(3deg); }
 }
 
 /* stem */
@@ -83,7 +91,7 @@ body {
   font-size: 4vh;
 }
 
-/* 🎯 TOP LAYOUT BACK TO NORMAL */
+/* center layout */
 .container {
   text-align: center;
   position: relative;
@@ -92,8 +100,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* 🔥 back to top flow */
-  padding-top: 8vh;           /* original feel restored */
+  justify-content: flex-start;
+
+  padding-top: 8vh;
 }
 
 .typing {
@@ -110,6 +119,7 @@ body {
   color: #5a2d6d;
 }
 
+/* message */
 .message-card {
   margin-top: 3vh;
   padding: 4vw;
@@ -124,7 +134,6 @@ body {
   font-size: 3.8vw;
   line-height: 1.7;
   color: #2b2b2b;
-
   text-align: center;
 }
 
@@ -136,7 +145,7 @@ body {
   text-align: center;
 }
 
-/* ❤️ hearts */
+/* hearts */
 .heart {
   position: absolute;
   color: #fa4843;
@@ -147,32 +156,10 @@ body {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-700px); opacity: 0; }
 }
-
-/* 🎵 MUSIC BUTTON */
-.music-btn {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  z-index: 5;
-
-  padding: 10px 14px;
-  border: none;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.5);
-  cursor: pointer;
-  font-size: 14px;
-}
 </style>
 </head>
 
 <body>
-
-<!-- 🎵 MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c6b5c0c9c.mp3?filename=romantic-piano-ambient-110397.mp3">
-</audio>
-
-<button class="music-btn" onclick="toggleMusic()">🎵 Music</button>
 
 <div class="bg" id="bg"></div>
 
@@ -195,25 +182,6 @@ body {
 
 <script>
 
-// 🎵 FIXED MUSIC TOGGLE
-const music = document.getElementById("bgMusic");
-let isPlaying = false;
-
-function toggleMusic() {
-  if (!isPlaying) {
-    music.volume = 0.4;
-    music.play().then(() => {
-      isPlaying = true;
-    }).catch(() => {
-      alert("Tap again or interact with page to play music");
-    });
-  } else {
-    music.pause();
-    isPlaying = false;
-  }
-}
-
-
 // ❤️ hearts
 function createHeart() {
   const heart = document.createElement("div");
@@ -229,7 +197,7 @@ function createHeart() {
 setInterval(createHeart, 800);
 
 
-// 🌿 plants
+// 🌷 plants (smooth grow instead of pop)
 const bg = document.getElementById("bg");
 let lastX = 0;
 
@@ -271,7 +239,7 @@ function createPlant() {
 setInterval(createPlant, 2000);
 
 
-// ⌨️ typing
+// ⌨️ typing effect
 const text = "I LOVE YOU";
 const typingEl = document.getElementById("typing");
 

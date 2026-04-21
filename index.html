@@ -17,10 +17,6 @@ body {
   background: linear-gradient(135deg, #FFC568, #ffdca8);
   font-family: "Segoe UI", sans-serif;
   overflow: hidden;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* 🌿 background */
@@ -31,12 +27,12 @@ body {
   z-index: 0;
 }
 
-/* 🌷 MOVE FLOWERS HIGHER */
+/* 🌷 FLOWERS FIXED TO BOTTOM (NO GAP) */
 .plant {
   position: absolute;
-  bottom: 10vh; /* 🔥 raised so visible above box */
+  bottom: 0;              /* 🔥 FIX: true ground */
   width: 10vw;
-  height: 35vh;
+  height: 40vh;           /* big plants */
   transform-origin: bottom center;
   animation: sway 6s ease-in-out infinite;
 }
@@ -46,6 +42,7 @@ body {
   50% { transform: rotate(3deg); }
 }
 
+/* stem */
 .stem {
   position: absolute;
   bottom: 0;
@@ -56,6 +53,7 @@ body {
   transform: translateX(-50%);
 }
 
+/* leaves */
 .leaf {
   position: absolute;
   width: 2vh;
@@ -66,16 +64,17 @@ body {
 
 .leaf.left {
   left: -2vh;
-  top: 35%;
+  top: 40%;
   transform: rotate(-45deg);
 }
 
 .leaf.right {
   right: -2vh;
-  top: 55%;
+  top: 60%;
   transform: rotate(45deg);
 }
 
+/* flower */
 .flower {
   position: absolute;
   top: -4vh;
@@ -84,7 +83,7 @@ body {
   font-size: 4vh;
 }
 
-/* 🔥 MOVE CONTENT UP SO FLOWERS ARE VISIBLE */
+/* 🎯 TOP LAYOUT BACK TO NORMAL */
 .container {
   text-align: center;
   position: relative;
@@ -93,9 +92,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-
-  transform: translateY(-5vh); /* 🔥 important fix */
+  justify-content: flex-start; /* 🔥 back to top flow */
+  padding-top: 8vh;           /* original feel restored */
 }
 
 .typing {
@@ -160,10 +158,9 @@ body {
   padding: 10px 14px;
   border: none;
   border-radius: 20px;
-  background: rgba(255,255,255,0.4);
-  backdrop-filter: blur(5px);
-  font-size: 14px;
+  background: rgba(255,255,255,0.5);
   cursor: pointer;
+  font-size: 14px;
 }
 </style>
 </head>
@@ -198,18 +195,21 @@ body {
 
 <script>
 
-// 🎵 music toggle
+// 🎵 FIXED MUSIC TOGGLE
 const music = document.getElementById("bgMusic");
-let playing = false;
+let isPlaying = false;
 
 function toggleMusic() {
-  if (!playing) {
+  if (!isPlaying) {
     music.volume = 0.4;
-    music.play();
-    playing = true;
+    music.play().then(() => {
+      isPlaying = true;
+    }).catch(() => {
+      alert("Tap again or interact with page to play music");
+    });
   } else {
     music.pause();
-    playing = false;
+    isPlaying = false;
   }
 }
 

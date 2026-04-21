@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Love You</title>
 
 <style>
@@ -14,14 +15,11 @@
 body {
   height: 100vh;
   background: linear-gradient(135deg, #FFC568, #ffdca8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-family: "Segoe UI", sans-serif;
   overflow: hidden;
 }
 
-/* Background */
+/* 🌿 background */
 .bg {
   position: absolute;
   width: 100%;
@@ -29,19 +27,19 @@ body {
   z-index: 0;
 }
 
-/* 🌿 PLANT */
+/* 🌿 PLANT (mobile fixed using vh) */
 .plant {
   position: absolute;
-  bottom: -150px;
-  width: 30px;
-  height: 140px;
+  bottom: -20vh;
+  width: 6vw;
+  height: 18vh;
   transform-origin: bottom center;
-  animation: rise 2.8s ease-out forwards, sway 6s ease-in-out infinite;
+  animation: rise 3s ease-out forwards, sway 6s ease-in-out infinite;
 }
 
 @keyframes rise {
-  from { bottom: -150px; }
-  to { bottom: 0px; }
+  from { bottom: -20vh; }
+  to { bottom: 0vh; }
 }
 
 @keyframes sway {
@@ -55,7 +53,7 @@ body {
   bottom: 0;
   left: 50%;
   width: 2px;
-  height: 120px;
+  height: 100%;
   background: #5fbf6a;
   transform: translateX(-50%);
 }
@@ -63,76 +61,82 @@ body {
 /* leaves */
 .leaf {
   position: absolute;
-  width: 13px;
-  height: 13px;
+  width: 1.2vh;
+  height: 1.2vh;
   background: #4caf50;
   border-radius: 70% 0 70% 0;
 }
 
 .leaf.left {
-  left: -10px;
-  top: 45px;
+  left: -1.2vh;
+  top: 35%;
   transform: rotate(-45deg);
 }
 
 .leaf.right {
-  right: -10px;
-  top: 70px;
+  right: -1.2vh;
+  top: 55%;
   transform: rotate(45deg);
 }
 
 /* flower */
 .flower {
   position: absolute;
-  top: -22px;
+  top: -2vh;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 20px;
+  font-size: 2vh;
 }
 
-/* UI */
+/* container */
 .container {
   text-align: center;
   position: relative;
   z-index: 2;
+  padding-top: 10vh;
 }
 
+/* typing */
 .typing {
-  font-size: 48px;
+  font-size: 6vw;
   font-weight: bold;
   color: #763C8C;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 3px solid #763C8C;
+  border-right: 2px solid #763C8C;
 }
 
+/* name */
 .name {
-  font-size: 30px;
-  margin-top: 10px;
+  font-size: 5vw;
+  margin-top: 1vh;
   color: #5a2d6d;
 }
 
-/* message */
+/* message card */
 .message-card {
-  margin-top: 30px;
-  padding: 18px;
-  width: 320px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255,255,255,0.15);
+  margin-top: 3vh;
+  padding: 4vw;
+  width: 80vw;
+  max-width: 340px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255,255,255,0.2);
   backdrop-filter: blur(2px);
   border-radius: 15px;
-  font-size: 15px;
+  font-size: 3.8vw;
   line-height: 1.7;
   color: #2b2b2b;
   text-align: left;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* signature */
 .signature {
-  margin-top: 12px;
+  margin-top: 2vh;
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 4vw;
   color: #763C8C;
 }
 
@@ -152,11 +156,6 @@ body {
 
 <body>
 
-<!-- 🎵 MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c6b5c0c9c.mp3?filename=romantic-piano-ambient-110397.mp3" type="audio/mpeg">
-</audio>
-
 <div class="bg" id="bg"></div>
 
 <div class="container">
@@ -164,11 +163,11 @@ body {
   <div class="name">My Buggu 💜</div>
 
   <div class="message-card">
-    You are my everything 💜  
-    Khush reha kar baby ❤️  
+    You are my everything 💜<br>
+    Khush reha kar baby ❤️<br>
 
-    💋💋  
-    I miss you 💋  
+    💋💋<br>
+    I miss you 💋<br>
 
     <div class="signature">
       ❤️ Sami ❤️
@@ -178,22 +177,7 @@ body {
 
 <script>
 
-// 🎵 music play (browser safe)
-const music = document.getElementById("bgMusic");
-
-function playMusic() {
-  music.volume = 0.4;
-  music.play().catch(() => {
-    // fallback: play on first click
-    document.body.addEventListener("click", () => {
-      music.play();
-    }, { once: true });
-  });
-}
-playMusic();
-
-
-// ❤️ hearts
+// hearts
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -208,7 +192,7 @@ function createHeart() {
 setInterval(createHeart, 800);
 
 
-// 🌿 plants
+// plants
 const bg = document.getElementById("bg");
 let lastX = 0;
 
@@ -216,7 +200,7 @@ function createPlant() {
   let x;
   do {
     x = Math.random() * window.innerWidth;
-  } while (Math.abs(x - lastX) < 90);
+  } while (Math.abs(x - lastX) < 80);
 
   lastX = x;
 
@@ -250,7 +234,7 @@ function createPlant() {
 setInterval(createPlant, 2000);
 
 
-// ⌨️ typing
+// typing
 const text = "I LOVE YOU";
 const typingEl = document.getElementById("typing");
 

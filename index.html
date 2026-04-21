@@ -27,27 +27,40 @@ body {
   z-index: 0;
 }
 
-/* 🌷 PLANT (FIXED + GROW EFFECT) */
+/* 🌷 PLANT (REAL GROW FROM GROUND FIX) */
 .plant {
   position: absolute;
   bottom: 0;
   width: 10vw;
-  height: 40vh;
-  transform-origin: bottom center;
 
-  /* 🔥 grow from ground */
-  animation: growUp 1.8s ease-out forwards, sway 6s ease-in-out infinite;
-  transform: scaleY(0);
+  height: 0;                /* 🔥 start invisible */
+  opacity: 0;
+  overflow: visible;
+
+  transform-origin: bottom;
+
+  animation: growPlant 1.8s ease-out forwards, sway 6s ease-in-out infinite;
 }
 
-@keyframes growUp {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
+@keyframes growPlant {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    height: 40vh;
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes sway {
-  0%, 100% { transform: scaleY(1) rotate(-3deg); }
-  50% { transform: scaleY(1) rotate(3deg); }
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
 }
 
 /* stem */
@@ -119,7 +132,6 @@ body {
   color: #5a2d6d;
 }
 
-/* message */
 .message-card {
   margin-top: 3vh;
   padding: 4vw;
@@ -182,7 +194,7 @@ body {
 
 <script>
 
-// ❤️ hearts
+// hearts
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -197,7 +209,7 @@ function createHeart() {
 setInterval(createHeart, 800);
 
 
-// 🌷 plants (smooth grow instead of pop)
+// 🌷 REAL GROW FLOWERS FIXED
 const bg = document.getElementById("bg");
 let lastX = 0;
 
@@ -239,7 +251,7 @@ function createPlant() {
 setInterval(createPlant, 2000);
 
 
-// ⌨️ typing effect
+// typing
 const text = "I LOVE YOU";
 const typingEl = document.getElementById("typing");
 

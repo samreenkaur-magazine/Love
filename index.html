@@ -17,9 +17,14 @@ body {
   background: linear-gradient(135deg, #FFC568, #ffdca8);
   font-family: "Segoe UI", sans-serif;
   overflow: hidden;
+
+  /* 🎯 FULL CENTER FIX */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* 🌿 background */
+/* background */
 .bg {
   position: absolute;
   width: 100%;
@@ -27,12 +32,12 @@ body {
   z-index: 0;
 }
 
-/* 🌿 PLANT (mobile fixed using vh) */
+/* 🌿 PLANT (BIGGER + MID SCREEN REACH) */
 .plant {
   position: absolute;
   bottom: -20vh;
-  width: 6vw;
-  height: 18vh;
+  width: 10vw;
+  height: 35vh; /* 🔥 bigger */
   transform-origin: bottom center;
   animation: rise 3s ease-out forwards, sway 6s ease-in-out infinite;
 }
@@ -52,7 +57,7 @@ body {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: 2px;
+  width: 3px;
   height: 100%;
   background: #5fbf6a;
   transform: translateX(-50%);
@@ -61,39 +66,43 @@ body {
 /* leaves */
 .leaf {
   position: absolute;
-  width: 1.2vh;
-  height: 1.2vh;
+  width: 2vh;
+  height: 2vh;
   background: #4caf50;
   border-radius: 70% 0 70% 0;
 }
 
 .leaf.left {
-  left: -1.2vh;
+  left: -2vh;
   top: 35%;
   transform: rotate(-45deg);
 }
 
 .leaf.right {
-  right: -1.2vh;
+  right: -2vh;
   top: 55%;
   transform: rotate(45deg);
 }
 
-/* flower */
+/* 🌷 BIG FLOWER */
 .flower {
   position: absolute;
-  top: -2vh;
+  top: -4vh;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 2vh;
+  font-size: 4vh; /* 🔥 bigger flowers */
 }
 
-/* container */
+/* MAIN CENTER WRAPPER */
 .container {
   text-align: center;
   position: relative;
   z-index: 2;
-  padding-top: 10vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* typing */
@@ -102,7 +111,6 @@ body {
   font-weight: bold;
   color: #763C8C;
   white-space: nowrap;
-  overflow: hidden;
   border-right: 2px solid #763C8C;
 }
 
@@ -113,31 +121,33 @@ body {
   color: #5a2d6d;
 }
 
-/* message card */
+/* 💌 message */
 .message-card {
   margin-top: 3vh;
   padding: 4vw;
   width: 80vw;
   max-width: 340px;
+
   background: rgba(255, 255, 255, 0.10);
   border: 1px solid rgba(255,255,255,0.2);
   backdrop-filter: blur(2px);
   border-radius: 15px;
+
   font-size: 3.8vw;
   line-height: 1.7;
   color: #2b2b2b;
-  text-align: left;
-  margin-left: auto;
-  margin-right: auto;
+
+  /* 🔥 CENTER TEXT FIX */
+  text-align: center;
 }
 
 /* signature */
 .signature {
   margin-top: 2vh;
-  text-align: center;
   font-weight: bold;
   font-size: 4vw;
   color: #763C8C;
+  text-align: center;
 }
 
 /* hearts */
@@ -164,7 +174,7 @@ body {
 
   <div class="message-card">
     You are my everything 💜<br>
-    Khush reha kar baby ❤️<br>
+    Khush reha kar baby ❤️<br><br>
 
     💋💋<br>
     I miss you 💋<br>

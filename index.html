@@ -18,13 +18,12 @@ body {
   font-family: "Segoe UI", sans-serif;
   overflow: hidden;
 
-  /* 🎯 FULL CENTER FIX */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* background */
+/* 🌿 background */
 .bg {
   position: absolute;
   width: 100%;
@@ -32,19 +31,14 @@ body {
   z-index: 0;
 }
 
-/* 🌿 PLANT (BIGGER + MID SCREEN REACH) */
+/* 🌷 MOVE FLOWERS HIGHER */
 .plant {
   position: absolute;
-  bottom: -20vh;
+  bottom: 10vh; /* 🔥 raised so visible above box */
   width: 10vw;
-  height: 35vh; /* 🔥 bigger */
+  height: 35vh;
   transform-origin: bottom center;
-  animation: rise 3s ease-out forwards, sway 6s ease-in-out infinite;
-}
-
-@keyframes rise {
-  from { bottom: -20vh; }
-  to { bottom: 0vh; }
+  animation: sway 6s ease-in-out infinite;
 }
 
 @keyframes sway {
@@ -52,7 +46,6 @@ body {
   50% { transform: rotate(3deg); }
 }
 
-/* stem */
 .stem {
   position: absolute;
   bottom: 0;
@@ -63,7 +56,6 @@ body {
   transform: translateX(-50%);
 }
 
-/* leaves */
 .leaf {
   position: absolute;
   width: 2vh;
@@ -84,16 +76,15 @@ body {
   transform: rotate(45deg);
 }
 
-/* 🌷 BIG FLOWER */
 .flower {
   position: absolute;
   top: -4vh;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 4vh; /* 🔥 bigger flowers */
+  font-size: 4vh;
 }
 
-/* MAIN CENTER WRAPPER */
+/* 🔥 MOVE CONTENT UP SO FLOWERS ARE VISIBLE */
 .container {
   text-align: center;
   position: relative;
@@ -103,9 +94,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  transform: translateY(-5vh); /* 🔥 important fix */
 }
 
-/* typing */
 .typing {
   font-size: 6vw;
   font-weight: bold;
@@ -114,14 +106,12 @@ body {
   border-right: 2px solid #763C8C;
 }
 
-/* name */
 .name {
   font-size: 5vw;
   margin-top: 1vh;
   color: #5a2d6d;
 }
 
-/* 💌 message */
 .message-card {
   margin-top: 3vh;
   padding: 4vw;
@@ -137,11 +127,9 @@ body {
   line-height: 1.7;
   color: #2b2b2b;
 
-  /* 🔥 CENTER TEXT FIX */
   text-align: center;
 }
 
-/* signature */
 .signature {
   margin-top: 2vh;
   font-weight: bold;
@@ -150,7 +138,7 @@ body {
   text-align: center;
 }
 
-/* hearts */
+/* ❤️ hearts */
 .heart {
   position: absolute;
   color: #fa4843;
@@ -161,10 +149,33 @@ body {
   0% { transform: translateY(0); opacity: 1; }
   100% { transform: translateY(-700px); opacity: 0; }
 }
+
+/* 🎵 MUSIC BUTTON */
+.music-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 5;
+
+  padding: 10px 14px;
+  border: none;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(5px);
+  font-size: 14px;
+  cursor: pointer;
+}
 </style>
 </head>
 
 <body>
+
+<!-- 🎵 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c6b5c0c9c.mp3?filename=romantic-piano-ambient-110397.mp3">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🎵 Music</button>
 
 <div class="bg" id="bg"></div>
 
@@ -187,7 +198,23 @@ body {
 
 <script>
 
-// hearts
+// 🎵 music toggle
+const music = document.getElementById("bgMusic");
+let playing = false;
+
+function toggleMusic() {
+  if (!playing) {
+    music.volume = 0.4;
+    music.play();
+    playing = true;
+  } else {
+    music.pause();
+    playing = false;
+  }
+}
+
+
+// ❤️ hearts
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
@@ -202,7 +229,7 @@ function createHeart() {
 setInterval(createHeart, 800);
 
 
-// plants
+// 🌿 plants
 const bg = document.getElementById("bg");
 let lastX = 0;
 
@@ -244,7 +271,7 @@ function createPlant() {
 setInterval(createPlant, 2000);
 
 
-// typing
+// ⌨️ typing
 const text = "I LOVE YOU";
 const typingEl = document.getElementById("typing");
 
